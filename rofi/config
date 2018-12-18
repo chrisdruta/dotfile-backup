@@ -1,0 +1,5 @@
+rofi.theme: ~/.config/rofi/sidebar.rasi
+
+#rofi.font: IBM 3270 27
+#rofi.font: Glass TTY VT220 27
+rofi.font: Dina ttf 10px Bold 24

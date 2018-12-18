@@ -1,0 +1,15 @@
+#!/bin/bash
+
+player_status=$(playerctl status 2> /dev/null)
+if [[ $? -eq 0 ]]; then
+        metadata="$(playerctl metadata title)"
+        fi
+
+        if [[ $player_status = "Playing" ]]; then
+                ( playerctl metadata title | zscroll -l 10 -d 0.1 -n 1) &#  %{F#ccffffff}" #
+        elif [[ $player_status = "Paused" ]]; then
+                echo "playerctl metadata title   %{F#66}" #
+        else
+                echo ""
+    fi
+                            

@@ -1,0 +1,146 @@
+#Setup
+set $mod Mod4
+font pango:Roboto 10
+floating_modifier $mod
+
+#Keybindings
+bindsym $mod+Return exec termite
+bindsym $mod+Shift+q kill
+
+#Windows
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+#Fullscreen 
+bindsym $mod+f fullscreen toggle
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+bindsym $mod+d exec rofi -show drun
+
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+#Workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+Tab workspace next
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#Resize
+mode "Resize" {
+	bindsym j resize shrink width 10 px or 10 ppt
+	bindsym k resize grow height 10 px or 10 ppt
+	bindsym l resize shrink height 10 px or 10 ppt
+	bindsym semicolon resize grow width 10 px or 10 ppt
+	bindsym Left resize shrink width 10 px or 10 ppt
+	bindsym Down resize grow height 10 px or 10 ppt
+	bindsym Up resize shrink height 10 px or 10 ppt
+	bindsym Right resize grow width 10 px or 10 ppt
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+r mode "Resize"
+
+for_window [class="^.*"] border pixel 0
+
+# class                           border        backgr.     text            indicator     child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #30309b
+client.unfocused        #333333 #222222 #888888 #292d2e   #5f676a
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+
+# Bar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# Volume control
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute; exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute; exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec amixer -q set Master toggle; exec pkill -SIGRTMIN+10 i3blocks
+
+# Media Control
+bindsym $mod+p exec playerctl play-pause; exec pkill -SIGRTMIN+10 i3blocks
+bindsym $mod+comma exec playerctl previous; exec pkill -SIGRTMIN+10 i3blocks
+bindsym $mod+period exec playerctl next; exec pkill -SIGRTMIN+10 i3blocks
+
+# Notification Daemon
+exec --no-startup-id twmnd
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+# Set background
+#exec --no-startup-id feh --bg-scale ~/Rice/wallpapers/bg.jpg
+exec --no-startup-id feh --bg-scale ~/Rice/wallpapers/spacesurf.png
+
+# Start compositor
+exec --no-startup-id compton -bGC
+
+# Set lock after suspend/hibrenate
+#exec --no-startup-id xss-lock -- i3lock-fancy
+
+#Gaps config
+gaps inner 10
+gaps outer 4
+smart_gaps on
+smart_borders on
